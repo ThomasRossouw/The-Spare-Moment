@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TimeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModuleCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModuleCredits" Type="int" Nullable="false" />
+          <Property Name="ModuleHrsPerWeek" Type="int" Nullable="false" />
+          <Property Name="ModuleWeeks" Type="int" Nullable="false" />
+          <Property Name="HrsSpent" Type="int" Nullable="false" />
+          <Property Name="ModuleStartDate" Type="date" Nullable="false" />
+          <Property Name="selfStudyHours" Type="int" Nullable="false" />
+          <Property Name="RemainingHours" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Module__UserName__25869641">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Module__UserName__2D27B809">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ModuleCreationOrUpdation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULE_ID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODULE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODULE_CREDITS" Type="int" Mode="In" />
+          <Parameter Name="MODULE_HOURS_WEEK" Type="int" Mode="In" />
+          <Parameter Name="MODULE_WEEKS" Type="int" Mode="In" />
+          <Parameter Name="MODULE_HOURS_SPENT" Type="int" Mode="In" />
+          <Parameter Name="MODULE_START" Type="date" Mode="In" />
+          <Parameter Name="SELF_STUDY" Type="int" Mode="In" />
+          <Parameter Name="WEEK_STUDY_HOURS_REMAINING" Type="int" Mode="In" />
+          <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ModuleDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULE_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ModuleIView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULE_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ModuleViewAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Tj_Userlogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="FIRST_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="LAST_NAME" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Tj_UserModules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULE_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODULE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODULE_CREDITS" Type="int" Mode="In" />
+          <Parameter Name="MODULE_HOURS_WEEK" Type="int" Mode="In" />
+          <Parameter Name="MODULE_WEEKS" Type="int" Mode="In" />
+          <Parameter Name="MODULE_HOURS_SPENT" Type="int" Mode="In" />
+          <Parameter Name="MODULE_START" Type="date" Mode="In" />
+          <Parameter Name="SELF_STUDY" Type="int" Mode="In" />
+          <Parameter Name="WEEK_STUDY_HOURS_REMAINING" Type="int" Mode="In" />
+          <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="TimeModelStoreContainer">
+          <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Module__UserName__25869641" Association="Self.FK__Module__UserName__25869641">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Module__UserName__2D27B809" Association="Self.FK__Module__UserName__2D27B809">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Users" Association="Self.FK_Module_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users" Association="Self.FK_Users_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TimeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModuleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModuleCredits" Type="Int32" Nullable="false" />
+          <Property Name="ModuleHrsPerWeek" Type="Int32" Nullable="false" />
+          <Property Name="ModuleWeeks" Type="Int32" Nullable="false" />
+          <Property Name="HrsSpent" Type="Int32" Nullable="false" />
+          <Property Name="ModuleStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="selfStudyHours" Type="Int32" Nullable="false" />
+          <Property Name="RemainingHours" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Module__UserName__25869641" FromRole="Module" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Module__UserName__2D27B809" FromRole="Module" ToRole="Users" />
+          <NavigationProperty Name="User2" Relationship="Self.FK_Module_Users" FromRole="Module" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Modules" Relationship="Self.FK__Module__UserName__25869641" FromRole="Users" ToRole="Module" />
+          <NavigationProperty Name="Modules1" Relationship="Self.FK__Module__UserName__2D27B809" FromRole="Users" ToRole="Module" />
+          <NavigationProperty Name="Modules2" Relationship="Self.FK_Module_Users" FromRole="Users" ToRole="Module" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_Users_Users" FromRole="Users" ToRole="Users1" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Users_Users" FromRole="Users1" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Module__UserName__25869641">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Module__UserName__2D27B809">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Users1" Type="Self.User" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TimeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Modules" EntityType="Self.Module" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Module__UserName__25869641" Association="Self.FK__Module__UserName__25869641">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Module__UserName__2D27B809" Association="Self.FK__Module__UserName__2D27B809">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Users" Association="Self.FK_Module_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users" Association="Self.FK_Users_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="ModuleCreationOrUpdation">
+            <Parameter Name="MODULE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_CODE" Mode="In" Type="String" />
+            <Parameter Name="MODULE_NAME" Mode="In" Type="String" />
+            <Parameter Name="MODULE_CREDITS" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_HOURS_WEEK" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_WEEKS" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_HOURS_SPENT" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_START" Mode="In" Type="DateTime" />
+            <Parameter Name="SELF_STUDY" Mode="In" Type="Int32" />
+            <Parameter Name="WEEK_STUDY_HOURS_REMAINING" Mode="In" Type="Int32" />
+            <Parameter Name="USERNAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ModuleDelete">
+            <Parameter Name="MODULE_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ModuleIView" ReturnType="Collection(TimeModel.ModuleIView_Result)">
+            <Parameter Name="MODULE_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ModuleViewAll" ReturnType="Collection(TimeModel.ModuleViewAll_Result)" />
+          <FunctionImport Name="Tj_Userlogin">
+            <Parameter Name="USERNAME" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="FIRST_NAME" Mode="In" Type="String" />
+            <Parameter Name="LAST_NAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Tj_UserModules">
+            <Parameter Name="MODULE_CODE" Mode="In" Type="String" />
+            <Parameter Name="MODULE_NAME" Mode="In" Type="String" />
+            <Parameter Name="MODULE_CREDITS" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_HOURS_WEEK" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_WEEKS" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_HOURS_SPENT" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_START" Mode="In" Type="DateTime" />
+            <Parameter Name="SELF_STUDY" Mode="In" Type="Int32" />
+            <Parameter Name="WEEK_STUDY_HOURS_REMAINING" Mode="In" Type="Int32" />
+            <Parameter Name="USERNAME" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ModuleIView_Result">
+          <Property Type="Int32" Name="ModuleID" Nullable="false" />
+          <Property Type="String" Name="ModuleName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ModuleCode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ModuleCredits" Nullable="false" />
+          <Property Type="Int32" Name="ModuleHrsPerWeek" Nullable="false" />
+          <Property Type="Int32" Name="ModuleWeeks" Nullable="false" />
+          <Property Type="Int32" Name="HrsSpent" Nullable="false" />
+          <Property Type="DateTime" Name="ModuleStartDate" Nullable="false" />
+          <Property Type="Int32" Name="selfStudyHours" Nullable="false" />
+          <Property Type="Int32" Name="RemainingHours" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ModuleViewAll_Result">
+          <Property Type="Int32" Name="ModuleID" Nullable="false" />
+          <Property Type="String" Name="ModuleName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ModuleCode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ModuleCredits" Nullable="false" />
+          <Property Type="Int32" Name="ModuleHrsPerWeek" Nullable="false" />
+          <Property Type="Int32" Name="ModuleWeeks" Nullable="false" />
+          <Property Type="Int32" Name="HrsSpent" Nullable="false" />
+          <Property Type="DateTime" Name="ModuleStartDate" Nullable="false" />
+          <Property Type="Int32" Name="selfStudyHours" Nullable="false" />
+          <Property Type="Int32" Name="RemainingHours" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TimeModelStoreContainer" CdmEntityContainer="TimeEntities">
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="TimeModel.Module">
+              <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ModuleCode" ColumnName="ModuleCode" />
+                <ScalarProperty Name="ModuleCredits" ColumnName="ModuleCredits" />
+                <ScalarProperty Name="ModuleHrsPerWeek" ColumnName="ModuleHrsPerWeek" />
+                <ScalarProperty Name="ModuleWeeks" ColumnName="ModuleWeeks" />
+                <ScalarProperty Name="HrsSpent" ColumnName="HrsSpent" />
+                <ScalarProperty Name="ModuleStartDate" ColumnName="ModuleStartDate" />
+                <ScalarProperty Name="selfStudyHours" ColumnName="selfStudyHours" />
+                <ScalarProperty Name="RemainingHours" ColumnName="RemainingHours" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TimeModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ModuleCreationOrUpdation" FunctionName="TimeModel.Store.ModuleCreationOrUpdation" />
+          <FunctionImportMapping FunctionImportName="ModuleDelete" FunctionName="TimeModel.Store.ModuleDelete" />
+          <FunctionImportMapping FunctionImportName="ModuleIView" FunctionName="TimeModel.Store.ModuleIView">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TimeModel.ModuleIView_Result">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ModuleCode" ColumnName="ModuleCode" />
+                <ScalarProperty Name="ModuleCredits" ColumnName="ModuleCredits" />
+                <ScalarProperty Name="ModuleHrsPerWeek" ColumnName="ModuleHrsPerWeek" />
+                <ScalarProperty Name="ModuleWeeks" ColumnName="ModuleWeeks" />
+                <ScalarProperty Name="HrsSpent" ColumnName="HrsSpent" />
+                <ScalarProperty Name="ModuleStartDate" ColumnName="ModuleStartDate" />
+                <ScalarProperty Name="selfStudyHours" ColumnName="selfStudyHours" />
+                <ScalarProperty Name="RemainingHours" ColumnName="RemainingHours" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ModuleViewAll" FunctionName="TimeModel.Store.ModuleViewAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TimeModel.ModuleViewAll_Result">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ModuleCode" ColumnName="ModuleCode" />
+                <ScalarProperty Name="ModuleCredits" ColumnName="ModuleCredits" />
+                <ScalarProperty Name="ModuleHrsPerWeek" ColumnName="ModuleHrsPerWeek" />
+                <ScalarProperty Name="ModuleWeeks" ColumnName="ModuleWeeks" />
+                <ScalarProperty Name="HrsSpent" ColumnName="HrsSpent" />
+                <ScalarProperty Name="ModuleStartDate" ColumnName="ModuleStartDate" />
+                <ScalarProperty Name="selfStudyHours" ColumnName="selfStudyHours" />
+                <ScalarProperty Name="RemainingHours" ColumnName="RemainingHours" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Tj_Userlogin" FunctionName="TimeModel.Store.Tj_Userlogin" />
+          <FunctionImportMapping FunctionImportName="Tj_UserModules" FunctionName="TimeModel.Store.Tj_UserModules" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
